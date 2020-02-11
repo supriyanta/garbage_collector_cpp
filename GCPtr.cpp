@@ -151,8 +151,6 @@ unsigned GCPtr<T, size>::gcListSize()
   return gcList.size();
 }
 
-// static bool showGCList();
-
 template <typename T, int size>
 typename std::list<GCInfo<T>>::iterator GCPtr<T, size>::findAddress(T *t)
 {
@@ -216,3 +214,5 @@ bool GCPtr<T, size>::collect()
 
   return memoryFreed;
 }
+
+// static bool showGCList();

@@ -14,10 +14,8 @@ private:
 
 public:
   Iter();
-  // Iter() : current(NULL), begin(NULL), end(NULL);
 
   Iter(T *ptr, T *begin, T *end);
-  // Iter(T *ptr, T *begin, T *end) : current(ptr), begin(begin), end(end);
 
   // ~Iter()
   // {
