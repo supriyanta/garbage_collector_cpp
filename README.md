@@ -1,11 +1,6 @@
 # Garbage Collector for C++
 
-<<<<<<< HEAD
-This is an experimental project which enables user not to take care of manual release of Dynamically allocated memory when it goes out of scope or goes into the state when it will no longer be used.
-=======
 This is an experimental project which enables user not to take care of manual release of Dynamically allocated memory when it goes out of use or goes into the state when it will no longer be used.
-
-> > > > > > > 1e963a8bfe0758cf1c9b7a71c220e1119dd82dfc
 
 Here, Reference Counting method is used for creating the Garbage Collector.
 
