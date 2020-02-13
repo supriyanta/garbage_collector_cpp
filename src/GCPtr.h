@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <list>
+#include <cxxabi.h>
+
 #include "Iter.cpp"
 #include "GCInfo.cpp"
 
@@ -11,11 +13,19 @@ class GCPtr
 private:
   static std::list<GCInfo<T>> gcList;
   static bool init;
+
   unsigned m_size;
   bool isArray;
   T *ptr;
 
 public:
+  static bool displayLog;
+
+  static void change()
+  {
+    displayLog = false;
+  }
+
   GCPtr(T *t = nullptr);
 
   GCPtr(const GCPtr &copy);
@@ -55,4 +65,6 @@ public:
   typename std::list<GCInfo<T>>::iterator findAddress(T *t);
 
   static void clearAll();
+
+  static void showList();
 };
