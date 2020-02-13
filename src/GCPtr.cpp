@@ -26,6 +26,15 @@ GCPtr<T, size>::GCPtr(T *t)
     isArray = true;
   else
     isArray = false;
+
+  if (GCPtr<T, size>::displayLog)
+  {
+    std::cout << "GCPtr constructor...\n";
+    if (isArray)
+    {
+      std::cout << "array of size " << m_size << std::endl;
+    }
+  }
 }
 
 template <typename T, int size>
@@ -44,6 +53,15 @@ GCPtr<T, size>::GCPtr(const GCPtr &copy)
     isArray = true;
   else
     isArray = false;
+
+  if (GCPtr<T, size>::displayLog)
+  {
+    std::cout << "GCPtr copy constructor...\n";
+    if (isArray)
+    {
+      std::cout << "array of size " << m_size << std::endl;
+    }
+  }
 }
 
 template <typename T, int size>
@@ -54,6 +72,12 @@ GCPtr<T, size>::~GCPtr()
   if (it->referenceCount > 0)
     it->referenceCount -= 1;
 
+  if (GCPtr<T, size>::displayLog)
+  {
+    std::cout << "GCPtr goes out of scope...\n";
+  }
+
+  // Run when reference count decreased down to zero
   if (it->referenceCount == 0)
     collect();
 }
@@ -181,11 +205,20 @@ template <typename T, int size>
 bool GCPtr<T, size>::init = true;
 
 template <typename T, int size>
+bool GCPtr<T, size>::displayLog = false;
+
+template <typename T, int size>
 std::list<GCInfo<T>> GCPtr<T, size>::gcList;
 
 template <typename T, int size>
 bool GCPtr<T, size>::collect()
 {
+  if (GCPtr<T, size>::displayLog)
+  {
+    std::cout << "Before collect garbage...\n";
+    GCPtr<T, size>::showList();
+  }
+
   bool memoryFreed = false;
 
   typename std::list<GCInfo<T>>::iterator it;
@@ -200,10 +233,19 @@ bool GCPtr<T, size>::collect()
 
       if (it->isArray)
       {
+        if (GCPtr<T, size>::displayLog)
+        {
+          std::cout << "Deleting array of size " << it->arraySize << std::endl;
+        }
         delete[] it->m_ptr;
       }
       else
       {
+        if (GCPtr<T, size>::displayLog)
+        {
+          int stat;
+          std::cout << "Deleting " << abi::__cxa_demangle(typeid(it->m_ptr).name(), 0, 0, &stat) << " ptr" << std::endl;
+        }
         delete it->m_ptr;
       }
 
@@ -215,4 +257,7 @@ bool GCPtr<T, size>::collect()
   return memoryFreed;
 }
 
-// static bool showGCList();
+template <typename T, int size>
+void GCPtr<T, size>::showList()
+{
+}

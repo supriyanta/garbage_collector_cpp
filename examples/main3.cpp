@@ -1,6 +1,6 @@
 #include <iostream>
 #include <new>
-#include "../GCPtr.cpp"
+#include "../src/GCPtr.cpp"
 
 using namespace std;
 

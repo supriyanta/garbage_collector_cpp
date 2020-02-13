@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../GCPtr.cpp"
+#include "../src/GCPtr.cpp"
 
 int main(int argc, char const *argv[])
 {
